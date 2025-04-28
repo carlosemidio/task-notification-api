@@ -1,61 +1,49 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Running the Project with Docker
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+To run this project using Docker, follow these steps:
 
-## About Laravel
+1. **Install Docker and Docker Compose**: Ensure both Docker and Docker Compose are installed on your system. You can download them from [Docker's official website](https://www.docker.com/).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+2. **Clone the Repository**:
+    ```bash
+    git clone git@github.com:carlosemidio/task-notifications-api.git
+    cd task-notifications-api-main
+    ```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+3. **Set Up Environment Variables**:
+    - Copy the `.env.example` file to `.env`:
+      ```bash
+      cp .env.example .env
+      ```
+    - Update the `.env` file with your configuration. Ensure the following variables are set:
+      - `SYS_USER`: Specify the system user.
+      - `SYS_UID`: Specify the user ID.
+      - `DB_CONNECTION`: Set to `mysql`.
+      - `DB_HOST`: Set to `db-task-notifications`.
+      - `DB_PORT`: Set to `3306`.
+      - `DB_DATABASE`: Set to `database name of preference`.
+      - `DB_USERNAME`: Replace with your database username (e.g., `root` or `admin`).
+      - `DB_PASSWORD`: Replace with your database password.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+4. **Build and Start Docker Containers**:
+    - Run the following command to build and start the containers, generate the application key, run migrations, seed the database, install project´s dependencies with composer and create a symbolic link for storage
+      ```bash
+      sh install.sh
+      ```
 
-## Learning Laravel
+5. **Run Migrations**:
+    - Once the containers are running, execute the migrations to set up the database:
+      ```bash
+      docker-compose exec app php artisan migrate
+      ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+6. **Access the Application**:
+    - Open your browser and navigate to `http://localhost` to access the application.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+7. **Stop the Containers**:
+    - To stop the running containers, use:
+      ```bash
+      docker-compose down
+      ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+You are now ready to use the project with Docker!
