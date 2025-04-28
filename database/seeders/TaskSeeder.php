@@ -13,11 +13,9 @@ class TaskSeeder extends Seeder
      */
     public function run(): void
     {
-
         for ($i = 0; $i < 10; $i++) {
             Task::factory()->create([
-                'scheduled_to' => now()->addMinutes(rand(1, 60)),
-                'is_notified' => true,
+                'scheduled_to' => now()->addMinute()->addSeconds($i * 2),
             ]);
         }
     }
