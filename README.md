@@ -1,3 +1,6 @@
+> **⚠️ Warning**  
+> This project is configured to run primarily using Docker for ease of setup and consistency. While it is possible to run it in other environments, doing so may require additional configuration and is not officially supported.
+
 ## Running the Project with Docker
 
 To run this project using Docker, follow these steps:
@@ -31,19 +34,25 @@ To run this project using Docker, follow these steps:
       sh install.sh
       ```
 
-5. **Run Migrations**:
-    - Once the containers are running, execute the migrations to set up the database:
-      ```bash
-      docker-compose exec app php artisan migrate
-      ```
-
-6. **Access the Application**:
+5. **Access the Application**:
     - Open your browser and navigate to `http://localhost` to access the application.
 
-7. **Stop the Containers**:
+6. **Stop the Containers**:
     - To stop the running containers, use:
       ```bash
       docker-compose down
       ```
 
 You are now ready to use the project with Docker!
+
+7. **Run Laravel Queue**:
+  - To run the Laravel queue, execute the following command:
+    ```bash
+    docker compose exec app-task-notifications php artisan queue:work --queue=high,default
+    ```
+
+8. **Check Scheduled Tasks**:
+  - To check the scheduled tasks, run the following command:
+    ```bash
+    docker compose exec app-task-notifications php artisan check:tasks
+    ```
